@@ -11,12 +11,6 @@ note: required by a bound in `fmt_pointer`
   |
   | pub fn fmt_pointer<T: ?Sized + fmt::Pointer>(value: &T) -> impl fmt::Pointer + '_ {
   |                                ^^^^^^^^^^^^ required by this bound in `fmt_pointer`
-help: consider borrowing here
-  |
-3 | #[derive(&Display)]
-  |          +
-3 | #[derive(&mut Display)]
-  |          ++++
 
 error[E0277]: the trait bound `u32: Pointer` is not satisfied
  --> tests/compile_fail/display/struct_no_pointer_field.rs:4:11
@@ -38,9 +32,4 @@ error[E0277]: the trait bound `u32: Pointer` is not satisfied
 4 | #[display("{x:p}")]
   |           ^^^^^^^ the trait `Pointer` is not implemented for `u32`
   |
-note: required by a bound in `fmt_pointer`
- --> src/helpers.rs
-  |
-  | pub fn fmt_pointer<T: ?Sized + fmt::Pointer>(value: &T) -> impl fmt::Pointer + '_ {
-  |                                ^^^^^^^^^^^^ required by this bound in `fmt_pointer`
   = note: this error originates in the macro `$crate::format_args` which comes from the expansion of the derive macro `Display` (in Nightly builds, run with -Z macro-backtrace for more info)

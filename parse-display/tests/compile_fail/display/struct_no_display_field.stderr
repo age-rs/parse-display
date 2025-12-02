@@ -4,6 +4,11 @@ error[E0277]: `NoDisplay` doesn't implement `std::fmt::Display`
 3 | #[derive(Display)]
   |          ^^^^^^^ `NoDisplay` cannot be formatted with the default formatter
   |
-  = help: the trait `std::fmt::Display` is not implemented for `NoDisplay`
+help: the trait `std::fmt::Display` is not implemented for `NoDisplay`
+ --> tests/compile_fail/display/struct_no_display_field.rs:7:1
+  |
+7 | struct NoDisplay;
+  | ^^^^^^^^^^^^^^^^
   = note: in format strings you may be able to use `{:?}` (or {:#?} for pretty-print) instead
+  = note: required for `&NoDisplay` to implement `std::fmt::Display`
   = note: this error originates in the macro `$crate::format_args` which comes from the expansion of the derive macro `Display` (in Nightly builds, run with -Z macro-backtrace for more info)
