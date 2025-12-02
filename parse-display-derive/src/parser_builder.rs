@@ -475,7 +475,7 @@ impl<'a> ParserBuilder<'a> {
         if !bounds.can_extend {
             return Ok(());
         }
-        for field in self.fields.values() {
+        for (index, field) in self.fields.values().enumerate() {
             let mut bounds = bounds.child(field.hattrs.bound_from_str_resolved());
             if bounds.can_extend && field.capture.is_some() && field.hattrs.with.is_none() {
                 let mut ty = &field.source.ty;
@@ -483,7 +483,7 @@ impl<'a> ParserBuilder<'a> {
                     if let Some(opt_ty) = get_option_element(ty) {
                         ty = opt_ty;
                     } else {
-                        let key = FieldKey::from_field(field.source);
+                        let key = FieldKey::from_field(index, field.source);
                         bail!(ty.span(), "field `{key}` is not a option type.");
                     }
                 }

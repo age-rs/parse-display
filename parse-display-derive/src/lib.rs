@@ -1063,11 +1063,11 @@ impl FieldKey {
             Member::Unnamed(index) => Self::Unnamed(index.index as usize),
         }
     }
-    fn from_field(field: &Field) -> Self {
+    fn from_field(index: usize, field: &Field) -> Self {
         if let Some(ident) = &field.ident {
             Self::from_ident(ident)
         } else {
-            Self::Unnamed(0)
+            Self::Unnamed(index)
         }
     }
 
