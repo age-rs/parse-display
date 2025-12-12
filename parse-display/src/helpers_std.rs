@@ -80,7 +80,7 @@ impl Parser {
             if let Ast::Group(g) = ast {
                 if let GroupKind::CaptureName { name, .. } = &g.kind {
                     if let Some(ast) = asts.get(name.name.as_str()) {
-                        g.ast = Box::new((*ast).clone());
+                        *g.ast = (*ast).clone();
                         return Ok(false);
                     }
                 }
@@ -120,7 +120,7 @@ pub fn build_regex(s: &str, with: &[(&str, Option<Ast>)]) -> Regex {
             if let Ast::Group(g) = ast {
                 if let GroupKind::CaptureName { name, .. } = &g.kind {
                     if let Some(ast) = with.get(name.name.as_str()) {
-                        g.ast = Box::new((*ast).clone());
+                        *g.ast = (*ast).clone();
                         return Ok(false);
                     }
                 }
